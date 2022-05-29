@@ -6,7 +6,7 @@
 /*   By: tzi-qi <tzi-qi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:46:04 by tzi-qi            #+#    #+#             */
-/*   Updated: 2022/05/29 18:17:22 by tzi-qi           ###   ########.fr       */
+/*   Updated: 2022/05/29 21:39:21 by tzi-qi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**draw_board(int size)
 	return (board);
 }
 
-int	check_left(t_list *list, int y, int x)
+int	check_left(t_list *list, int y)
 {
 	int	j;
 	int	view;
@@ -54,7 +54,7 @@ int	check_left(t_list *list, int y, int x)
 		return (1);
 }
 
-int	check_right(t_list *list, int y, int x)
+int	check_right(t_list *list, int y)
 {
 	int	j;
 	int	view;
@@ -78,7 +78,7 @@ int	check_right(t_list *list, int y, int x)
 		return (1);
 }
 
-int	check_top(t_list *list, int y, int x)
+int	check_top(t_list *list, int x)
 {
 	int	i;
 	int	view;
@@ -102,7 +102,7 @@ int	check_top(t_list *list, int y, int x)
 		return (1);
 }
 
-int	check_bottom(t_list *list, int y, int x)
+int	check_bottom(t_list *list, int x)
 {
 	int	i;
 	int	view;
@@ -148,12 +148,12 @@ int	check(t_list *list, int y, int x)
 	if (x == (list->size - 1))
 	{
 		
-		if(!check_left(list, y, x) || !check_right(list, y, x))
+		if(!check_left(list, y) || !check_right(list, y))
 			return (0);
 	}
 	if (y == (list->size - 1))
 	{
-		if (!check_top(list, y, x) || !check_bottom(list, y, x))
+		if (!check_top(list, x) || !check_bottom(list, x))
 			return (0);
 	}
 	return (1);
@@ -162,7 +162,6 @@ int	check(t_list *list, int y, int x)
 int	solution(t_list	*list, int y, int x)
 {
 	int	ans;
-	int a = 0;
 	static int i = 0;
 	
 	if (x == list->size)
@@ -177,7 +176,6 @@ int	solution(t_list	*list, int y, int x)
 	{
 		list->board[y][x] = ans + '0';
 		i++;
-		printf("Perm: %d\n", i);
 		if (check(list, y, x) == 1)
 		{
 			if (solution(list, y, x + 1) == 1)
@@ -260,8 +258,6 @@ void	initialize_varia(t_list *list)
 int	main(int argc, char *argv[])
 {
 	int		a;
-	char	*str;
-	char	**board;
 	t_list	list;
 
 	a = 0;
